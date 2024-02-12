@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
             try {
-                // Obtiene la imagen seleccionada
+                // obtiene la imagen seleccionada
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                // Muestra la imagen en el ImageView
+                // muestra la imagen en el imageview
                 imageView.setImageBitmap(bitmap);
-                // Guarda la imagen seleccionada
+                // guarda la imagen seleccionada
                 selectedImage = bitmap;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -65,13 +65,14 @@ public class MainActivity extends AppCompatActivity {
         if (selectedImage != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("¿Está seguro de establecer esta imagen como fondo de pantalla?")
-                    //se argumenta si le parece proceder
+                    //se argumenta si le parece proceder la accion
                     .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Establecer la imagen como fondo de pantalla
+                            // establece la imagen como fondo de pantalla
                             WallpaperManager wallpaperManager = WallpaperManager.getInstance(getApplicationContext());
                             try {
                                 wallpaperManager.setBitmap(selectedImage);
+                                // mensaje-aviso si se realizo el metodo
                                 Toast toast = Toast.makeText(getApplicationContext(), "successfully", Toast.LENGTH_SHORT);
                                 toast.show();
                             } catch (IOException e) {
@@ -79,10 +80,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     })
-
+                    // cancela la accion
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Cancelar la acción
                         }
                     });
             AlertDialog alertDialog = builder.create();
